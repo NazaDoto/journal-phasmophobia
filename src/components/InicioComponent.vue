@@ -43,12 +43,12 @@ export default {
             ],
             imageNames: {
         dots: 'DOTS',
-        emf: 'EMF',
-        hd: 'Ultravioleta',
-        libro: 'Escritura fantasmal',
-        orbes: 'Orbes fantasmales',
+        emf: 'EMF 5',
+        hd: 'Ultraviolet',
+        libro: 'Ghost Writing',
+        orbes: 'Ghost Orb',
         sb: 'Spirit Box',
-        temp: 'Temperaturas heladas',
+        temp: 'Freezing Temperatures',
       },
             hoveredIndex: null,
         };
@@ -99,13 +99,13 @@ export default {
         updateFantasmas() {
             // Mapea el nombre del fantasma según los campos seleccionados en evidencias
             const ghostMappings = {
-                'emf': ['Espíritu', 'Espectro', 'Jinn', 'Sombra', 'Oni', 'Goryo', 'Myling', 'Gemelos', 'Raiju', 'Obake'],
-                'sb': ['Espíritu', 'Espectro', 'Ente', 'Poltergeist', 'Pesadilla', 'Yokai', 'Onryo', 'Gemelos', 'Mímico', 'Moroi', 'Deogen'],
-                'hd': ['Ente', 'Poltergeist', 'Banshee', 'Jinn', 'Demonio', 'Hantu', 'Goryo', 'Myling', 'Obake', 'Mímico'],
-                'libro': ['Espíritu', 'Poltergeist', 'Pesadilla', 'Revenant', 'Sombra', 'Demonio', 'Myling', 'Moroi', 'Deogen', 'Thaye'],
-                'orbes': ['Banshee', 'Pesadilla', 'Revenant', 'Yurei', 'Yokai', 'Hantu', 'Onryo', 'Raiju', 'Obake', 'Thaye'],
-                'temp': ['Jinn', 'Revenant', 'Sombra', 'Demonio', 'Yurei', 'Oni', 'Hantu', 'Onryo', 'Gemelos', 'Mímico', 'Moroi'],
-                'dots': ['Espectro', 'Ente', 'Banshee', 'Oni', 'Yokai', 'Goryo', 'Raiju', 'Deogen', 'Thaye'],
+                'emf': ['Spirit', 'Wraith', 'Jinn', 'Shade', 'Oni', 'Goryo', 'Myling', 'The Twins', 'Raiju', 'Obake'],
+                'sb': ['Spirit', 'Wraith', 'Phantom', 'Poltergeist', 'Mare', 'Yokai', 'Onryo', 'The Twins', 'Mimic', 'Moroi', 'Deogen'],
+                'hd': ['Phantom', 'Poltergeist', 'Banshee', 'Jinn', 'Demon', 'Hantu', 'Goryo', 'Myling', 'Obake', 'Mimic'],
+                'libro': ['Spirit', 'Poltergeist', 'Mare', 'Revenant', 'Shade', 'Demon', 'Myling', 'Moroi', 'Deogen', 'Thaye'],
+                'orbes': ['Banshee', 'Mare', 'Revenant', 'Yurei', 'Yokai', 'Hantu', 'Onryo', 'Raiju', 'Obake', 'Thaye'],
+                'temp': ['Jinn', 'Revenant', 'Shade', 'Demon', 'Yurei', 'Oni', 'Hantu', 'Onryo', 'The Twins', 'Mimic', 'Moroi'],
+                'dots': ['Wraith', 'Phantom', 'Banshee', 'Oni', 'Yokai', 'Goryo', 'Raiju', 'Deogen', 'Thaye'],
             };
 
 
@@ -147,7 +147,7 @@ export default {
     top: -70%;
     font-size: larger;
     font-weight: bold;
-    text-align: center;
+    text-align: cPhantomr;
     border-radius: 5px;
 }
 
@@ -158,8 +158,8 @@ export default {
     position: absolute;
     top: 85%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: cPhantomr;
+    align-items: cPhantomr;
 }
 
 .itemEvidencia {
