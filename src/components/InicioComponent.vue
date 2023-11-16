@@ -1,11 +1,14 @@
 <template>
     <div class="cajaEvidencias">
-        <span class="fantasma">{{ fantasmas }}</span>
+        <span v-if="fantasmas" class="fantasma">{{ fantasmas }}</span>
+        <span v-else class="fantasma">{{ textoFantasmas }}</span>
         <div v-for="image in images" :key="image" class="itemEvidencia">
             <img @click="toggleState(image)" :id="image" class="imagen-evidencia" :src="'./recursos/' + image + '.png'"
-                alt=""
+                @mouseover="showName(image)" @mouseleave="hideName(image)" alt=""
                 :class="{ 'seleccionado': evidencias[image] === 'seleccionado', 'eliminado': evidencias[image] === 'eliminado' }"
                 width="50" height="50">
+                <span v-if="hoveredIndex === image" class="imagen-name">{{ getImageName(image) }}</span>
+
         </div>
         <div class="itemEvidencia">
             <button class="btn-reset" @click="resetEvidencias">Reset</button>
@@ -17,6 +20,7 @@
 export default {
     data() {
         return {
+            textoFantasmas: '',
             fantasmas: '',
             evidencias: {
                 dots: 'deseleccionado',
@@ -37,9 +41,25 @@ export default {
                 'sb',
                 'temp',
             ],
+            imageNames: {
+        dots: 'DOTS',
+        emf: 'EMF',
+        hd: 'Ultravioleta',
+        libro: 'Escritura fantasmal',
+        orbes: 'Orbes fantasmales',
+        sb: 'Spirit Box',
+        temp: 'Temperaturas heladas',
+      },
+            hoveredIndex: null,
         };
     },
     methods: {
+        showName(index) {
+            this.hoveredIndex = index;
+        },
+        hideName(index) {
+            this.hoveredIndex = null;
+        },
         toggleState(item) {
             const currentState = this.evidencias[item];
 
@@ -74,6 +94,7 @@ export default {
                 this.setStyle(image, "rgba(0,0,0,0)", "none");
             }
             this.updateFantasmas();
+            this.textoFantasmas = '';
         },
         updateFantasmas() {
             // Mapea el nombre del fantasma según los campos seleccionados en evidencias
@@ -104,7 +125,13 @@ export default {
 
             // Reemplaza los fantasmas actuales con los nuevos
             this.fantasmas = selectedGhosts.map(ghost => ghost.charAt(0).toUpperCase() + ghost.slice(1)).join(' | ');
+            if (this.fantasmas == '') {
+                this.textoFantasmas = 'Ningún fantasma cuenta con estas evidencias.';
+            }
         },
+        getImageName(image) {
+      return this.imageNames[image] || 'Nombre Desconocido';
+    },
 
     },
 };
@@ -112,14 +139,18 @@ export default {
   
 <style>
 .fantasma {
+    padding-left: 10px;
+    padding-right: 10px;
     font-family: Arial, Helvetica, sans-serif;
     position: absolute;
     background-color: rgba(255, 255, 255, 0.5);
-    top: -50%;
+    top: -70%;
     font-size: larger;
     font-weight: bold;
     text-align: center;
+    border-radius: 5px;
 }
+
 
 .cajaEvidencias {
     width: 100vw;
@@ -150,6 +181,36 @@ export default {
     height: 60px;
 }
 
+.imagen {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+  }
+  
+  .imagen-name {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    padding: 15px;
+    background-color: gray;
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 14px;
+    z-index: 999;
+    display: none;
+  }
+  
+  .imagen-evidencia:hover + .imagen-name {
+    display: block;
+  }
+
 .seleccionado {
     border: 2px solid green;
     /* Cambiar a tus estilos deseados */
@@ -164,13 +225,15 @@ export default {
     font-family: Arial, Helvetica, sans-serif;
     font-size: large;
     border: none;
+    border-radius: 20px;
     font-weight: bold;
     padding: 15px;
+    background-color: gray;
 }
 
 .btn-reset:hover {
     cursor: pointer;
-    background-color: lightgrey;
+    background-color: lightgray;
 }
 </style>
   
