@@ -147,7 +147,7 @@ export default {
     top: -70%;
     font-size: larger;
     font-weight: bold;
-    text-align: cPhantomr;
+    text-align: center;
     border-radius: 5px;
 }
 
@@ -158,8 +158,8 @@ export default {
     position: absolute;
     top: 85%;
     display: flex;
-    justify-content: cPhantomr;
-    align-items: cPhantomr;
+    justify-content: center;
+    align-items: center;
 }
 
 .itemEvidencia {
