@@ -129,7 +129,7 @@ export default {
             // Reemplaza los fantasmas actuales con los nuevos
             this.fantasmas = selectedGhosts.map(ghost => ghost.charAt(0).toUpperCase() + ghost.slice(1)).join(' | ');
             if (this.fantasmas == '') {
-                this.textoFantasmas = 'Ningún fantasma cuenta con estas evidencias.';
+                this.textoFantasmas = 'No ghost shows this evidence.';
             }
         },
         getImageName(image) {
