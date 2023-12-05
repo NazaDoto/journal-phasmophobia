@@ -104,10 +104,9 @@ export default {
                 'hd': ['Phantom', 'Poltergeist', 'Banshee', 'Jinn', 'Demon', 'Hantu', 'Goryo', 'Myling', 'Obake', 'Mimic'],
                 'libro': ['Spirit', 'Poltergeist', 'Mare', 'Revenant', 'Shade', 'Demon', 'Myling', 'Moroi', 'Deogen', 'Thaye'],
                 'orbes': ['Banshee', 'Mare', 'Revenant', 'Yurei', 'Yokai', 'Hantu', 'Onryo', 'Raiju', 'Obake', 'Thaye'],
-                'temp': ['Jinn', 'Revenant', 'Shade', 'Demon', 'Yurei', 'Oni', 'Hantu', 'Onryo', 'The Twins', 'Mimic', 'Moroi'],
-                'dots': ['Wraith', 'Phantom', 'Banshee', 'Oni', 'Yokai', 'Goryo', 'Raiju', 'Deogen', 'Thaye'],
+                'temp': ['Jinn', 'Revenant', 'Shade', 'Demon', 'Yurei', 'Oni', 'Hantu', 'Onryo', 'The Twins', 'Mimic'],
+                'dots': ['Wraith', 'Phantom', 'Banshee', 'Oni', 'Yurei', 'Yokai', 'Goryo', 'Raiju', 'Deogen', 'Thaye'],
             };
-
 
             const selectedGhosts = this.images.reduce((acc, image) => {
                 if (this.evidencias[image] === 'seleccionado') {
@@ -119,6 +118,10 @@ export default {
                         // Filtra los fantasmas que no coinciden con la evidencia actual
                         return acc.filter(ghost => ghostsForImage.includes(ghost));
                     }
+                } else if (this.evidencias[image] === 'eliminado') {
+                    // Eliminar fantasmas asociados con esta evidencia eliminada
+                    const ghostsForImage = ghostMappings[image];
+                    return acc.filter(ghost => !ghostsForImage.includes(ghost));
                 }
                 return acc;
             }, []);
