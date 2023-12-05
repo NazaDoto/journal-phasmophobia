@@ -7,7 +7,7 @@
                 @mouseover="showName(image)" @mouseleave="hideName(image)" alt=""
                 :class="{ 'seleccionado': evidencias[image] === 'seleccionado', 'eliminado': evidencias[image] === 'eliminado' }"
                 width="50" height="50">
-                <span v-if="hoveredIndex === image" class="imagen-name">{{ getImageName(image) }}</span>
+            <span v-if="hoveredIndex === image" class="imagen-name">{{ getImageName(image) }}</span>
 
         </div>
         <div class="itemEvidencia">
@@ -42,14 +42,14 @@ export default {
                 'temp',
             ],
             imageNames: {
-        dots: 'DOTS',
-        emf: 'EMF 5',
-        hd: 'Ultravioleta',
-        libro: 'Escritura fantasmal',
-        orbes: 'Orbes fantasmales',
-        sb: 'Spirit Box',
-        temp: 'Temperaturas heladas',
-      },
+                dots: 'DOTS',
+                emf: 'EMF 5',
+                hd: 'Ultravioleta',
+                libro: 'Escritura fantasmal',
+                orbes: 'Orbes fantasmales',
+                sb: 'Spirit Box',
+                temp: 'Temperaturas heladas',
+            },
             hoveredIndex: null,
         };
     },
@@ -104,8 +104,8 @@ export default {
                 'hd': ['Ente', 'Poltergeist', 'Banshee', 'Jinn', 'Demonio', 'Hantu', 'Goryo', 'Myling', 'Obake', 'Mímico'],
                 'libro': ['Espíritu', 'Poltergeist', 'Pesadilla', 'Revenant', 'Sombra', 'Demonio', 'Myling', 'Moroi', 'Deogen', 'Thaye'],
                 'orbes': ['Banshee', 'Pesadilla', 'Revenant', 'Yurei', 'Yokai', 'Hantu', 'Onryo', 'Raiju', 'Obake', 'Thaye'],
-                'temp': ['Jinn', 'Revenant', 'Sombra', 'Demonio', 'Yurei', 'Oni', 'Hantu', 'Onryo', 'Gemelos', 'Mímico', 'Moroi'],
-                'dots': ['Espectro', 'Ente', 'Banshee', 'Oni', 'Yokai', 'Goryo', 'Raiju', 'Deogen', 'Thaye'],
+                'temp': ['Jinn', 'Revenant', 'Sombra', 'Demonio', 'Yurei', 'Oni', 'Hantu', 'Onryo', 'Gemelos', 'Mímico'],
+                'dots': ['Espectro', 'Ente', 'Banshee', 'Oni', 'Yurei', 'Yokai', 'Goryo', 'Raiju', 'Deogen', 'Thaye'],
             };
 
 
@@ -119,6 +119,10 @@ export default {
                         // Filtra los fantasmas que no coinciden con la evidencia actual
                         return acc.filter(ghost => ghostsForImage.includes(ghost));
                     }
+                } else if (this.evidencias[image] === 'eliminado') {
+                    // Eliminar fantasmas asociados con esta evidencia eliminada
+                    const ghostsForImage = ghostMappings[image];
+                    return acc.filter(ghost => !ghostsForImage.includes(ghost));
                 }
                 return acc;
             }, []);
@@ -130,8 +134,8 @@ export default {
             }
         },
         getImageName(image) {
-      return this.imageNames[image] || 'Nombre Desconocido';
-    },
+            return this.imageNames[image] || 'Nombre Desconocido';
+        },
 
     },
 };
@@ -185,9 +189,9 @@ export default {
     position: relative;
     display: inline-block;
     margin: 10px;
-  }
-  
-  .imagen-name {
+}
+
+.imagen-name {
     font-family: Arial, Helvetica, sans-serif;
     font-size: large;
     border: none;
@@ -205,11 +209,11 @@ export default {
     font-size: 14px;
     z-index: 999;
     display: none;
-  }
-  
-  .imagen-evidencia:hover + .imagen-name {
+}
+
+.imagen-evidencia:hover+.imagen-name {
     display: block;
-  }
+}
 
 .seleccionado {
     border: 2px solid green;
