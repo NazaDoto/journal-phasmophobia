@@ -240,13 +240,15 @@ export default {
     border-radius: 20px;
     font-weight: bold;
     padding: 15px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     margin-left: 15px;
+    color: white;
+    text-shadow: 1px 1px 5px black;
 }
 
 .btn-reset:hover {
     cursor: pointer;
-    background-color: lightgray;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .minimizado {
@@ -254,22 +256,29 @@ export default {
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
+
 .maximizado {
     opacity: 100;
     transition: opacity 0.3s ease;
 }
-.toggle-btn{
+
+.toggle-btn {
+    position: absolute;
+    top: 80%;
     font-family: Arial, Helvetica, sans-serif;
     border: none;
     font-weight: bold;
     border-radius: 20px;
     padding: 15px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     margin-left: 15px;
+    color: white;
+    text-shadow: 1px 1px 5px black;
+
 }
+
 .toggle-btn:hover {
     cursor: pointer;
-    background-color: lightgray;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 </style>
-  
