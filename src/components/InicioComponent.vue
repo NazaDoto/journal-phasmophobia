@@ -1,17 +1,18 @@
 <template>
-    <div class="cajaEvidencias">
-        <span v-if="fantasmas" class="fantasma">{{ fantasmas }}</span>
-        <span v-else class="fantasma">{{ textoFantasmas }}</span>
-        <div v-for="image in images" :key="image" class="itemEvidencia">
-            <img @click="toggleState(image)" :id="image" class="imagen-evidencia" :src="'./recursos/' + image + '.png'"
-                @mouseover="showName(image)" @mouseleave="hideName(image)" alt=""
-                :class="{ 'seleccionado': evidencias[image] === 'seleccionado', 'eliminado': evidencias[image] === 'eliminado' }"
-                width="50" height="50">
-            <span v-if="hoveredIndex === image" class="imagen-name">{{ getImageName(image) }}</span>
-
-        </div>
-        <div class="itemEvidencia">
-            <button class="btn-reset" @click="resetEvidencias">Reset</button>
+    <div class="cajaEvidencias">        
+        <div :class="{ 'minimizado': botonesMinimizados, 'maximizado' : !botonesMinimizados }">
+            <span v-if="fantasmas" class="fantasma">{{ fantasmas }}</span>
+            <span v-else class="fantasma">{{ textoFantasmas }}</span>
+            <div v-for="image in images" :key="image" class="itemEvidencia">
+                <img @click="toggleState(image)" :id="image" class="imagen-evidencia" :src="'./recursos/' + image + '.png'"
+                    @mouseover="showName(image)" @mouseleave="hideName(image)" alt=""
+                    :class="{ 'seleccionado': evidencias[image] === 'seleccionado', 'eliminado': evidencias[image] === 'eliminado' }"
+                    width="50" height="50">
+                <span v-if="hoveredIndex === image" class="imagen-name">{{ getImageName(image) }}</span>
+            </div>
+            <div class="itemEvidencia">
+                <button class="btn-reset" @click="resetEvidencias">Reset</button>
+            </div>
         </div>
     </div>
 </template>
@@ -22,6 +23,7 @@ export default {
         return {
             textoFantasmas: '',
             fantasmas: '',
+            botonesMinimizados: false, // Variable para controlar el estado de los botones
             evidencias: {
                 dots: 'deseleccionado',
                 emf: 'deseleccionado',
@@ -54,6 +56,9 @@ export default {
         };
     },
     methods: {
+        toggleBotones() {
+            this.botonesMinimizados = !this.botonesMinimizados;
+        },
         showName(index) {
             this.hoveredIndex = index;
         },
@@ -104,7 +109,7 @@ export default {
                 'hd': ['Ente', 'Poltergeist', 'Banshee', 'Jinn', 'Demonio', 'Hantu', 'Goryo', 'Myling', 'Obake', 'Mímico'],
                 'libro': ['Espíritu', 'Poltergeist', 'Pesadilla', 'Revenant', 'Sombra', 'Demonio', 'Myling', 'Moroi', 'Deogen', 'Thaye'],
                 'orbes': ['Banshee', 'Pesadilla', 'Revenant', 'Yurei', 'Yokai', 'Hantu', 'Onryo', 'Raiju', 'Obake', 'Thaye'],
-                'temp': ['Jinn', 'Revenant', 'Sombra', 'Demonio', 'Yurei', 'Oni', 'Hantu', 'Onryo', 'Gemelos', 'Mímico' ,'Moroi'],
+                'temp': ['Jinn', 'Revenant', 'Sombra', 'Demonio', 'Yurei', 'Oni', 'Hantu', 'Onryo', 'Gemelos', 'Mímico', 'Moroi'],
                 'dots': ['Espectro', 'Ente', 'Banshee', 'Oni', 'Yurei', 'Yokai', 'Goryo', 'Raiju', 'Deogen', 'Thaye'],
             };
 
@@ -164,6 +169,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.3s ease, opacity 0.3s ease, pointer-events 0.3s ease;
+
 }
 
 .itemEvidencia {
@@ -239,5 +246,17 @@ export default {
     cursor: pointer;
     background-color: lightgray;
 }
+
+.minimizado {
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease, pointer-events 0.3s ease;
+}
+.maximizado {
+    opacity: 100;
+    transition: transform 0.3s ease, opacity 0.3s ease, pointer-events 0.3s ease;
+}
+
+
 </style>
   
