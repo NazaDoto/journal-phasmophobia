@@ -1,21 +1,21 @@
 <template>
     <div>
         <button class="toggle-btn" @click="toggleBotones">
-        {{ botonesMinimizados ? 'Show' : 'Hide Evidences' }}
-      </button>
-        <div class="cajaEvidencias" :class="{ 'minimizado': botonesMinimizados, 'maximizado' : !botonesMinimizados }">
-                <span v-if="fantasmas" class="fantasma">{{ fantasmas }}</span>
-                <span v-else class="fantasma">{{ textoFantasmas }}</span>
-                <div v-for="image in images" :key="image" class="itemEvidencia">
-                    <img @click="toggleState(image)" :id="image" class="imagen-evidencia" :src="'./recursos/' + image + '.png'"
-                        @mouseover="showName(image)" @mouseleave="hideName(image)" alt=""
-                        :class="{ 'seleccionado': evidencias[image] === 'seleccionado', 'eliminado': evidencias[image] === 'eliminado' }"
-                        width="50" height="50">
-                        <span v-if="hoveredIndex === image" class="imagen-name">{{ getImageName(image) }}</span>    
-                </div>
-                <div class="itemEvidencia">
-                    <button class="btn-reset" @click="resetEvidencias">Reset</button>
-                </div>
+            {{ botonesMinimizados ? 'Show' : 'Hide Evidences' }}
+        </button>
+        <div class="cajaEvidencias" :class="{ 'minimizado': botonesMinimizados, 'maximizado': !botonesMinimizados }">
+            <span v-if="fantasmas" class="fantasma">{{ fantasmas }}</span>
+            <span v-else class="fantasma">{{ textoFantasmas }}</span>
+            <div v-for="image in images" :key="image" class="itemEvidencia">
+                <img @click="toggleState(image)" :id="image" class="imagen-evidencia" :src="'./recursos/' + image + '.png'"
+                    @mouseover="showName(image)" @mouseleave="hideName(image)" alt=""
+                    :class="{ 'seleccionado': evidencias[image] === 'seleccionado', 'eliminado': evidencias[image] === 'eliminado' }"
+                    width="50" height="50">
+                <span v-if="hoveredIndex === image" class="imagen-name">{{ getImageName(image) }}</span>
+            </div>
+            <div class="itemEvidencia">
+                <button class="btn-reset" @click="resetEvidencias">Reset</button>
+            </div>
         </div>
     </div>
 </template>
@@ -47,14 +47,14 @@ export default {
                 'temp',
             ],
             imageNames: {
-        dots: 'DOTS',
-        emf: 'EMF 5',
-        hd: 'Ultraviolet',
-        libro: 'Ghost Writing',
-        orbes: 'Ghost Orb',
-        sb: 'Spirit Box',
-        temp: 'Freezing Temperatures',
-      },
+                dots: 'DOTS',
+                emf: 'EMF 5',
+                hd: 'Ultraviolet',
+                libro: 'Ghost Writing',
+                orbes: 'Ghost Orb',
+                sb: 'Spirit Box',
+                temp: 'Freezing Temperatures',
+            },
             hoveredIndex: null,
         };
     },
@@ -141,8 +141,8 @@ export default {
             }
         },
         getImageName(image) {
-      return this.imageNames[image] || 'Nombre Desconocido';
-    },
+            return this.imageNames[image] || 'Nombre Desconocido';
+        },
 
     },
 };
@@ -196,9 +196,9 @@ export default {
     position: relative;
     display: inline-block;
     margin: 10px;
-  }
-  
-  .imagen-name {
+}
+
+.imagen-name {
     font-family: Arial, Helvetica, sans-serif;
     font-size: large;
     border: none;
@@ -216,11 +216,11 @@ export default {
     font-size: 14px;
     z-index: 999;
     display: none;
-  }
-  
-  .imagen-evidencia:hover + .imagen-name {
+}
+
+.imagen-evidencia:hover+.imagen-name {
     display: block;
-  }
+}
 
 .seleccionado {
     border: 2px solid green;
@@ -239,13 +239,15 @@ export default {
     border-radius: 20px;
     font-weight: bold;
     padding: 15px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     margin-left: 15px;
+    color: white;
+    text-shadow: 1px 1px 5px black;
 }
 
 .btn-reset:hover {
     cursor: pointer;
-    background-color: lightgray;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .minimizado {
@@ -253,22 +255,30 @@ export default {
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
+
 .maximizado {
     opacity: 100;
     transition: opacity 0.3s ease;
 }
-.toggle-btn{
+
+.toggle-btn {
+    position: absolute;
+    top: 80%;
     font-family: Arial, Helvetica, sans-serif;
     border: none;
     font-weight: bold;
     border-radius: 20px;
     padding: 15px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     margin-left: 15px;
+    color: white;
+    text-shadow: 1px 1px 5px black;
+
 }
+
 .toggle-btn:hover {
     cursor: pointer;
-    background-color: lightgray;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 </style>
   
