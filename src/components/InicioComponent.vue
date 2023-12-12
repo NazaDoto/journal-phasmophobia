@@ -1,7 +1,7 @@
 <template>
     <div>
         <button class="toggle-btn" @click="toggleBotones">
-        {{ botonesMinimizados ? 'Mostrar Evidencias' : 'Ocultar Evidencias' }}
+        {{ botonesMinimizados ? 'Show' : 'Hide Evidences' }}
       </button>
         <div class="cajaEvidencias" :class="{ 'minimizado': botonesMinimizados, 'maximizado' : !botonesMinimizados }">
                 <span v-if="fantasmas" class="fantasma">{{ fantasmas }}</span>
