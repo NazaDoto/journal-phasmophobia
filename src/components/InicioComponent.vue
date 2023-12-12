@@ -104,7 +104,7 @@ export default {
                 'hd': ['Ente', 'Poltergeist', 'Banshee', 'Jinn', 'Demonio', 'Hantu', 'Goryo', 'Myling', 'Obake', 'Mímico'],
                 'libro': ['Espíritu', 'Poltergeist', 'Pesadilla', 'Revenant', 'Sombra', 'Demonio', 'Myling', 'Moroi', 'Deogen', 'Thaye'],
                 'orbes': ['Banshee', 'Pesadilla', 'Revenant', 'Yurei', 'Yokai', 'Hantu', 'Onryo', 'Raiju', 'Obake', 'Thaye'],
-                'temp': ['Jinn', 'Revenant', 'Sombra', 'Demonio', 'Yurei', 'Oni', 'Hantu', 'Onryo', 'Gemelos', 'Mímico'],
+                'temp': ['Jinn', 'Revenant', 'Sombra', 'Demonio', 'Yurei', 'Oni', 'Hantu', 'Onryo', 'Gemelos', 'Mímico' ,'Moroi'],
                 'dots': ['Espectro', 'Ente', 'Banshee', 'Oni', 'Yurei', 'Yokai', 'Goryo', 'Raiju', 'Deogen', 'Thaye'],
             };
 
