@@ -1,18 +1,21 @@
 <template>
-    <div class="cajaEvidencias">        
-        <div :class="{ 'minimizado': botonesMinimizados, 'maximizado' : !botonesMinimizados }">
-            <span v-if="fantasmas" class="fantasma">{{ fantasmas }}</span>
-            <span v-else class="fantasma">{{ textoFantasmas }}</span>
-            <div v-for="image in images" :key="image" class="itemEvidencia">
-                <img @click="toggleState(image)" :id="image" class="imagen-evidencia" :src="'./recursos/' + image + '.png'"
-                    @mouseover="showName(image)" @mouseleave="hideName(image)" alt=""
-                    :class="{ 'seleccionado': evidencias[image] === 'seleccionado', 'eliminado': evidencias[image] === 'eliminado' }"
-                    width="50" height="50">
-                <span v-if="hoveredIndex === image" class="imagen-name">{{ getImageName(image) }}</span>
-            </div>
-            <div class="itemEvidencia">
-                <button class="btn-reset" @click="resetEvidencias">Reset</button>
-            </div>
+    <div>
+        <button class="toggle-btn" @click="toggleBotones">
+        {{ botonesMinimizados ? 'Mostrar' : 'Ocultar Evidencias' }}
+      </button>
+        <div class="cajaEvidencias" :class="{ 'minimizado': botonesMinimizados, 'maximizado' : !botonesMinimizados }">
+                <span v-if="fantasmas" class="fantasma">{{ fantasmas }}</span>
+                <span v-else class="fantasma">{{ textoFantasmas }}</span>
+                <div v-for="image in images" :key="image" class="itemEvidencia">
+                    <img @click="toggleState(image)" :id="image" class="imagen-evidencia" :src="'./recursos/' + image + '.png'"
+                        @mouseover="showName(image)" @mouseleave="hideName(image)" alt=""
+                        :class="{ 'seleccionado': evidencias[image] === 'seleccionado', 'eliminado': evidencias[image] === 'eliminado' }"
+                        width="50" height="50">
+                        <span v-if="hoveredIndex === image" class="imagen-name">{{ getImageName(image) }}</span>    
+                </div>
+                <div class="itemEvidencia">
+                    <button class="btn-reset" @click="resetEvidencias">Reset</button>
+                </div>
         </div>
     </div>
 </template>
@@ -169,8 +172,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.3s ease, opacity 0.3s ease, pointer-events 0.3s ease;
-
 }
 
 .itemEvidencia {
@@ -196,9 +197,9 @@ export default {
     position: relative;
     display: inline-block;
     margin: 10px;
-}
-
-.imagen-name {
+  }
+  
+  .imagen-name {
     font-family: Arial, Helvetica, sans-serif;
     font-size: large;
     border: none;
@@ -216,11 +217,11 @@ export default {
     font-size: 14px;
     z-index: 999;
     display: none;
-}
-
-.imagen-evidencia:hover+.imagen-name {
+  }
+  
+  .imagen-evidencia:hover + .imagen-name {
     display: block;
-}
+  }
 
 .seleccionado {
     border: 2px solid green;
@@ -239,7 +240,8 @@ export default {
     border-radius: 20px;
     font-weight: bold;
     padding: 15px;
-    background-color: gray;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin-left: 15px;
 }
 
 .btn-reset:hover {
@@ -250,13 +252,24 @@ export default {
 .minimizado {
     opacity: 0;
     pointer-events: none;
-    transition: transform 0.3s ease, opacity 0.3s ease, pointer-events 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 .maximizado {
     opacity: 100;
-    transition: transform 0.3s ease, opacity 0.3s ease, pointer-events 0.3s ease;
+    transition: opacity 0.3s ease;
 }
-
-
+.toggle-btn{
+    font-family: Arial, Helvetica, sans-serif;
+    border: none;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin-left: 15px;
+}
+.toggle-btn:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
 </style>
   
