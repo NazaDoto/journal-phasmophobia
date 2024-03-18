@@ -1,227 +1,273 @@
 <template>
     <div>
         <button class="toggle-btn" @click="toggleBotones">
-            {{ botonesMinimizados ? 'Show' : 'Hide Evidences' }}
+            <img v-if="botonesMinimizados" class="toggle-btn-size" src="/recursos/libro.png" alt="Minimizar">
+            <img v-else class="toggle-btn-size" src="/recursos/close.png" alt="Maximizar">
         </button>
         <div class="cajaEvidencias" :class="{ 'minimizado': botonesMinimizados, 'maximizado': !botonesMinimizados }">
-            <span v-if="fantasmas" class="fantasma">{{ fantasmas }}</span>
+            <div class="titulo-pruebas">Evidences</div>
+            <hr>
+            <span v-if="fantasmas" class="fantasma"></span>
             <span v-else class="fantasma">{{ textoFantasmas }}</span>
-            <div v-for="image in images" :key="image" class="itemEvidencia">
-                <img @click="toggleState(image)" :id="image" class="imagen-evidencia" :src="'./recursos/' + image + '.png'"
-                    @mouseover="showName(image)" @mouseleave="hideName(image)" alt=""
-                    :class="{ 'seleccionado': evidencias[image] === 'seleccionado', 'eliminado': evidencias[image] === 'eliminado' }"
-                    width="50" height="50">
-                <span v-if="hoveredIndex === image" class="imagen-name">{{ getImageName(image) }}</span>
-            </div>
-            <div class="itemEvidencia">
+            <table class="evidencias-table">
+                <tr>
+                    <td @click="toggleState(images[0])" class="nombre-evidencia" id="emf">EMF Level 5</td>
+                    <td @click="toggleState(images[1])" class="nombre-evidencia" id="dots">D.O.T.S Projector</td>
+                </tr>
+                <tr>
+                    <td @click="toggleState(images[2])" class="nombre-evidencia" id="hd">Fingerprints</td>
+                    <td @click="toggleState(images[3])" class="nombre-evidencia" id="orbes">Ghost Orb</td>
+                </tr>
+                <tr>
+                    <td @click="toggleState(images[4])" class="nombre-evidencia" id="libro">Ghost Writing</td>
+                    <td @click="toggleState(images[5])" class="nombre-evidencia" id="sb">Spirit Box</td>
+                </tr>
+                <tr>
+                    <td @click="toggleState(images[6])" class="nombre-evidencia" id="temp">Freezing Temperatures</td>
+                </tr>
+                <tr>
+                </tr>
+            </table>
+            <hr>
+            <table class="fantasmas-table">
+                <tr v-for="row in fantasmasTable" :key="row.id">
+                    <td v-for="ghost in row.ghosts" :key="ghost.id">
+                        <div :class="{ 'fantasma-nombre': true, 'fantasma-seleccionado': isGhostSelected(ghost.name) }">
+                            {{ ghost.name }}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <div>
                 <button class="btn-reset" @click="resetEvidencias">Reset</button>
             </div>
         </div>
     </div>
 </template>
-  
+
 <script>
 export default {
     data() {
         return {
+            fantasmasTable: [
+                { id: 1, ghosts: ['Spirit', 'Spectre', 'Phantom'] },
+                { id: 2, ghosts: ['Poltergeist', 'Banshee', 'Jinn'] },
+                { id: 3, ghosts: ['Mare', 'Revenant', 'Shade'] },
+                { id: 4, ghosts: ['Demon', 'Yurei', 'Oni'] },
+                { id: 5, ghosts: ['Yokai', 'Hantu', 'Goryo'] },
+                { id: 6, ghosts: ['Myling', 'Onryo', 'The Twins'] },
+                { id: 7, ghosts: ['Raiju', 'Obake', 'Mimic'] },
+                { id: 8, ghosts: ['Moroi', 'Deogen', 'Thaye'] },
+            ],
             textoFantasmas: '',
             fantasmas: '',
-            botonesMinimizados: false, // Variable para controlar el estado de los botones
+            botonesMinimizados: false,
             evidencias: {
-                dots: 'deseleccionado',
                 emf: 'deseleccionado',
+                dots: 'deseleccionado',
                 hd: 'deseleccionado',
-                libro: 'deseleccionado',
                 orbes: 'deseleccionado',
+                libro: 'deseleccionado',
                 sb: 'deseleccionado',
                 temp: 'deseleccionado',
             },
             maxEvidencias: 3,
-            images: [
-                'dots',
-                'emf',
-                'hd',
-                'libro',
-                'orbes',
-                'sb',
-                'temp',
-            ],
-            imageNames: {
-                dots: 'DOTS',
-                emf: 'EMF 5',
-                hd: 'Ultraviolet',
-                libro: 'Ghost Writing',
-                orbes: 'Ghost Orb',
-                sb: 'Spirit Box',
-                temp: 'Freezing Temperatures',
-            },
+            images: ['emf', 'dots', 'hd', 'orbes', 'libro', 'sb', 'temp'],
+            fantasmasNombre: ['Spirit', 'Spectre', 'Phantom', 'Poltergeist', 'Banshee', 'Jinn', 'Mare', 'Revenant', 'Shade', 'Demon', 'Yurei', 'Oni', 'Yokai', 'Hantu', 'Goryo', 'Myling', 'Onryo', 'The Twins', 'Raiju', 'Obake', 'Mimic', 'Moroi', 'Deogen', 'Thaye'],
             hoveredIndex: null,
         };
     },
+    computed: {
+        fantasmasTable() {
+            return [
+                { id: 1, ghosts: this.getGhostRow(['Spirit', 'Spectre', 'Phantom']) },
+                { id: 2, ghosts: this.getGhostRow(['Poltergeist', 'Banshee', 'Jinn']) },
+                { id: 3, ghosts: this.getGhostRow(['Mare', 'Revenant', 'Shade']) },
+                { id: 4, ghosts: this.getGhostRow(['Demon', 'Yurei', 'Oni']) },
+                { id: 5, ghosts: this.getGhostRow(['Yokai', 'Hantu', 'Goryo']) },
+                { id: 6, ghosts: this.getGhostRow(['Myling', 'Onryo', 'The Twins']) },
+                { id: 7, ghosts: this.getGhostRow(['Raiju', 'Obake', 'Mimic']) },
+                { id: 8, ghosts: this.getGhostRow(['Moroi', 'Deogen', 'Thaye']) },
+            ];
+        },
+    },
     methods: {
+        isGhostSelected(ghostName) {
+            return this.fantasmas.includes(ghostName);
+        },
+        getGhostRow(ghostNames) {
+            return ghostNames.map(name => ({ name, selected: this.isGhostSelected(name) }));
+        },
         toggleBotones() {
             this.botonesMinimizados = !this.botonesMinimizados;
-        },
-        showName(index) {
-            this.hoveredIndex = index;
-        },
-        hideName(index) {
-            this.hoveredIndex = null;
         },
         toggleState(item) {
             const currentState = this.evidencias[item];
 
-            // Contar las evidencias seleccionadas
             const selectedCount = Object.values(this.evidencias).filter(state => state === 'seleccionado').length;
 
             if (currentState === 'deseleccionado' && selectedCount < this.maxEvidencias) {
                 this.evidencias[item] = 'seleccionado';
-                this.setStyle(item, "rgba(0,120,255,0.2)", "10px");
+                this.setSeleccionado(item);
                 this.updateFantasmas();
             } else if (currentState === 'seleccionado') {
                 this.evidencias[item] = 'eliminado';
-                this.setStyle(item, "rgba(255,0,0,0.2)", "10px");
+                this.setEliminado(item);
                 this.updateFantasmas();
             } else if (currentState === 'eliminado') {
                 this.evidencias[item] = 'deseleccionado';
-                this.setStyle(item, "rgba(0,0,0,0)", "none");
+                this.setDeseleccionado(item);
                 this.updateFantasmas();
             }
         },
-        setStyle(id, backgroundColor, borderRadius) {
+        setSeleccionado(id){
             const element = document.getElementById(id);
             if (element) {
-                element.style.backgroundColor = backgroundColor;
-                element.style.borderRadius = borderRadius;
+                element.style.borderStyle = 'solid';
+                element.style.borderRadius = '10px';
+                element.style.borderColor = 'black';
+            }
+        },
+        setEliminado(id){
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.borderColor = 'rgba(0,0,0,0)';
+                element.style.textDecoration = 'line-through';
+            }
+        },
+        setDeseleccionado(id){
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.borderColor = 'rgba(0,0,0,0)';
+                element.style.textDecoration = 'none';
             }
         },
         resetEvidencias() {
-            // Restablecer todas las evidencias a 'deseleccionado'
             for (const image in this.evidencias) {
                 this.evidencias[image] = 'deseleccionado';
-                this.setStyle(image, "rgba(0,0,0,0)", "none");
+                this.setDeseleccionado(image);
             }
             this.updateFantasmas();
             this.textoFantasmas = '';
         },
         updateFantasmas() {
-            // Mapea el nombre del fantasma según los campos seleccionados en evidencias
             const ghostMappings = {
-                'emf': ['Spirit', 'Wraith', 'Jinn', 'Shade', 'Oni', 'Goryo', 'Myling', 'The Twins', 'Raiju', 'Obake'],
-                'sb': ['Spirit', 'Wraith', 'Phantom', 'Poltergeist', 'Mare', 'Yokai', 'Onryo', 'The Twins', 'Mimic', 'Moroi', 'Deogen'],
-                'hd': ['Phantom', 'Poltergeist', 'Banshee', 'Jinn', 'Demon', 'Hantu', 'Goryo', 'Myling', 'Obake', 'Mimic'],
-                'libro': ['Spirit', 'Poltergeist', 'Mare', 'Revenant', 'Shade', 'Demon', 'Myling', 'Moroi', 'Deogen', 'Thaye'],
-                'orbes': ['Banshee', 'Mare', 'Revenant', 'Yurei', 'Yokai', 'Hantu', 'Onryo', 'Raiju', 'Obake', 'Thaye'],
-                'temp': ['Jinn', 'Revenant', 'Shade', 'Demon', 'Yurei', 'Oni', 'Hantu', 'Onryo', 'The Twins', 'Mimic', 'Moroi'],
-                'dots': ['Wraith', 'Phantom', 'Banshee', 'Oni', 'Yurei', 'Yokai', 'Goryo', 'Raiju', 'Deogen', 'Thaye'],
+                emf: ['Spirit', 'Spectre', 'Jinn', 'Shade', 'Oni', 'Goryo', 'Myling', 'The Twins', 'Raiju', 'Obake'],
+                sb: ['Spirit', 'Spectre', 'Phantom', 'Poltergeist', 'Mare', 'Yokai', 'Onryo', 'The Twins', 'Mimic', 'Moroi', 'Deogen'],
+                hd: ['Phantom', 'Poltergeist', 'Banshee', 'Jinn', 'Demon', 'Hantu', 'Goryo', 'Myling', 'Obake', 'Mimic'],
+                libro: ['Spirit', 'Poltergeist', 'Mare', 'Revenant', 'Shade', 'Demon', 'Myling', 'Moroi', 'Deogen', 'Thaye'],
+                orbes: ['Banshee', 'Mare', 'Revenant', 'Yurei', 'Yokai', 'Hantu', 'Onryo', 'Raiju', 'Obake', 'Thaye'],
+                temp: ['Jinn', 'Revenant', 'Shade', 'Demon', 'Yurei', 'Oni', 'Hantu', 'Onryo', 'The Twins', 'Mimic', 'Moroi'],
+                dots: ['Spectre', 'Phantom', 'Banshee', 'Oni', 'Yurei', 'Yokai', 'Goryo', 'Raiju', 'Deogen', 'Thaye'],
             };
 
-            const selectedGhosts = this.images.reduce((acc, image) => {
-                if (this.evidencias[image] === 'seleccionado') {
-                    const ghostsForImage = ghostMappings[image];
-                    if (acc.length === 0) {
-                        // Si es la primera evidencia seleccionada, agrega todos los fantasmas para esa evidencia
-                        return ghostsForImage;
-                    } else {
-                        // Filtra los fantasmas que no coinciden con la evidencia actual
-                        return acc.filter(ghost => ghostsForImage.includes(ghost));
-                    }
-                } else if (this.evidencias[image] === 'eliminado') {
-                    // Eliminar fantasmas asociados con esta evidencia eliminada
-                    const ghostsForImage = ghostMappings[image];
-                    return acc.filter(ghost => !ghostsForImage.includes(ghost));
-                }
-                return acc;
+            const selectedEvidences = this.images.filter(image => this.evidencias[image] === 'seleccionado');
+            const eliminatedEvidences = this.images.filter(image => this.evidencias[image] === 'eliminado');
+
+            const selectedGhosts = selectedEvidences.reduce((acc, image) => {
+                const ghostsForImage = ghostMappings[image];
+                return acc.length === 0 ? ghostsForImage : acc.filter(ghost => ghostsForImage.includes(ghost));
             }, []);
 
-            // Reemplaza los fantasmas actuales con los nuevos
-            this.fantasmas = selectedGhosts.map(ghost => ghost.charAt(0).toUpperCase() + ghost.slice(1)).join(' | ');
-            if (this.fantasmas == '') {
-                this.textoFantasmas = 'No ghost shows this evidence.';
+            const eliminatedGhosts = eliminatedEvidences.reduce((acc, image) => {
+                const ghostsForImage = ghostMappings[image];
+                return acc.filter(ghost => !ghostsForImage.includes(ghost));
+            }, selectedGhosts);
+
+            this.fantasmas = eliminatedGhosts.map(ghost => ghost.charAt(0).toUpperCase() + ghost.slice(1));
+
+            if (this.fantasmas === '') {
+                this.textoFantasmas = 'Ningún fantasma cuenta con estas evidencias.';
             }
         },
-        getImageName(image) {
-            return this.imageNames[image] || 'Nombre Desconocido';
-        },
-
     },
 };
 </script>
-  
+
 <style>
+
+body{
+    font-family: 'fuPhantom';
+    user-select: none;
+}
+.fantasmas-table {
+    text-align: cPhantomr;
+    width: 100%;
+    font-size:3vh;
+}
+
+.fantasmas-table td {
+    padding: 5px;
+    margin: auto;
+}
+
+.fantasma-nombre {
+    opacity: 0.5;
+    /* Opacidad predeterminada */
+}
+
+.fantasma-nombre.fantasma-seleccionado {
+    font-weight: bold;
+    /* FuPhantom en negrita si está seleccionado */
+    opacity: 1;
+    
+    /* Restablecer la opacidad si está seleccionado */
+}
+
+.evidencias-table {
+    text-align: cPhantomr;
+    width: 100%;
+    margin: 0 auto 0 auto;
+    font-size: 20px;
+}
+
+.evidencias-table td {
+    border-style: solid;
+    border-color: rgba(0,0,0,0);
+}
+
+
+.nombre-evidencia:hover {
+    cursor: pointer;
+}
+
+.titulo-pruebas {
+    font-size:6vh;
+    margin-left: 20px;
+}
+
 .fantasma {
-    padding-left: 10px;
-    padding-right: 10px;
-    font-family: Arial, Helvetica, sans-serif;
     position: absolute;
     background-color: rgba(255, 255, 255, 0.5);
-    top: -70%;
-    font-size: larger;
+    top: 70%;
     font-weight: bold;
-    text-align: center;
+    text-align: cPhantomr;
     border-radius: 5px;
+    
 }
 
 
 .cajaEvidencias {
-    width: 100vw;
-    height: 80px;
+    width: 30vw;
     position: absolute;
-    top: 85%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    top: 10%;
+    left: 60%;
+    justify-content: cPhantomr;
+    align-items: cPhantomr;
+    background-color: rgb(254,252,219);
+        border-radius: 50px;
+    padding: 10px;
+    background-image: url('C:\Proyectos\journal-phasmophobia-en\public\recursos\fondo-page.jpg');
+    background-size: contain;
 }
 
-.itemEvidencia {
-    display: inline;
-    height: 70px;
-    width: 70px;
-    margin: auto 5px auto 5px;
-
+hr{
+    color: black;
+    border-style: solid;
+    margin-top: 0;
+    margin-bottom: 0;
 }
-
-.imagen-evidencia {
-    padding: 5px;
-    margin: 0 10px;
-}
-
-.imagen-evidencia:hover {
-    cursor: pointer;
-    width: 60px;
-    height: 60px;
-}
-
-.imagen {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
-}
-
-.imagen-name {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: large;
-    border: none;
-    border-radius: 20px;
-    font-weight: bold;
-    padding: 15px;
-    background-color: gray;
-    position: absolute;
-    top: -30%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 5px;
-    border-radius: 3px;
-    font-size: 14px;
-    z-index: 999;
-    display: none;
-}
-
-.imagen-evidencia:hover+.imagen-name {
-    display: block;
-}
-
 .seleccionado {
     border: 2px solid green;
     /* Cambiar a tus estilos deseados */
@@ -233,21 +279,19 @@ export default {
 }
 
 .btn-reset {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: large;
-    border: none;
-    border-radius: 20px;
-    font-weight: bold;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.1);
-    margin-left: 15px;
-    color: white;
-    text-shadow: 1px 1px 5px black;
+    font-family: 'fuPhantom';
+    font-size:4vh;
+    color:white;
+    text-shadow: 2px 1px 5px black;
+    border:none;
+    background-color:rgba(0,0,0,0);
+    width: 100%;
+    margin-top:10px;
 }
 
 .btn-reset:hover {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.2);
+    color:rgb(210, 230, 247);
 }
 
 .minimizado {
@@ -263,22 +307,32 @@ export default {
 
 .toggle-btn {
     position: absolute;
-    top: 80%;
-    font-family: Arial, Helvetica, sans-serif;
+    top: 8%;
+    left: 82%;
     border: none;
     font-weight: bold;
     border-radius: 20px;
     padding: 15px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0);
     margin-left: 15px;
     color: white;
     text-shadow: 1px 1px 5px black;
-
+    z-index: 1;
 }
 
 .toggle-btn:hover {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.toggle-btn-size {
+    height: 40px;
+    width: 40px;
+}
+.testLetra{
+    border-width: 3px;
+    border-radius: 10px;
+    border-color:black;
+    border-style: solid;
 }
 </style>
-  
