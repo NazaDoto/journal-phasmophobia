@@ -7,6 +7,11 @@ import InicioComponent from './components/InicioComponent.vue';
 </template>
 
 <style scoped>
+@font-face {
+    font-family: 'fuente';
+    src: url('C:\Proyectos\journal-phasmophobia-en\public\recursos\lazy_dog.ttf');
+}
+
 header {
   line-height: 1.5;
   max-height: 100vh;

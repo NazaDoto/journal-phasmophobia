@@ -188,11 +188,11 @@ export default {
 <style>
 
 body{
-    font-family: 'fuPhantom';
+    font-family: 'fuente';
     user-select: none;
 }
 .fantasmas-table {
-    text-align: cPhantomr;
+    text-align: center;
     width: 100%;
     font-size:3vh;
 }
@@ -216,7 +216,7 @@ body{
 }
 
 .evidencias-table {
-    text-align: cPhantomr;
+    text-align: center;
     width: 100%;
     margin: 0 auto 0 auto;
     font-size: 20px;
@@ -242,7 +242,7 @@ body{
     background-color: rgba(255, 255, 255, 0.5);
     top: 70%;
     font-weight: bold;
-    text-align: cPhantomr;
+    text-align: center;
     border-radius: 5px;
     
 }
@@ -253,8 +253,8 @@ body{
     position: absolute;
     top: 10%;
     left: 60%;
-    justify-content: cPhantomr;
-    align-items: cPhantomr;
+    justify-content: center;
+    align-items: center;
     background-color: rgb(254,252,219);
         border-radius: 50px;
     padding: 10px;
@@ -279,7 +279,7 @@ hr{
 }
 
 .btn-reset {
-    font-family: 'fuPhantom';
+    font-family: 'fuente';
     font-size:4vh;
     color:white;
     text-shadow: 2px 1px 5px black;
