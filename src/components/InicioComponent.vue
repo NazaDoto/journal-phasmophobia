@@ -307,8 +307,8 @@ hr{
 
 .toggle-btn {
     position: absolute;
-    top: 8%;
-    left: 82%;
+    top: 9vh;
+    left: 84vw;
     border: none;
     font-weight: bold;
     border-radius: 20px;
