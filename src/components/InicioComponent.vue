@@ -1,54 +1,120 @@
 <template>
     <div>
-        <button class="toggle-btn btn-maximizar" @click="toggleBotones">
-            <img v-if="botonesMinimizados" class="toggle-btn-size" src="/recursos/logo.png" alt="Minimizar">
+        <button class="toggle-btn btn-maximizar" @click="toggleJournal">
+            <img v-if="journalHidden" class="toggle-btn-size" src="/recursos/logo.png" alt="Minimizar">
         </button>
-        <div :class="{ 'minimizado': botonesMinimizados, 'maximizado': !botonesMinimizados }">
+        <div :class="{ 'hideJournal': journalHidden, 'showJournal': !journalHidden }">
             <div class="tabs">
-                <button class="tab-item"
-                    :class="paginaSeleccionada == 'Evidences' ? 'tab-item-active' : ''">Evidences</button>
-                <button class="tab-item">Ghosts</button>
-                <button class="toggle-btn" @click="toggleBotones">
+                <button @click="selectedPage = 'Evidences'" class="tab-item"
+                    :class="{ 'tab-item-active': selectedPage === 'Evidences' }">
+                    Evidences
+                </button>
+                <button @click="selectedPage = 'Ghosts'" class="tab-item"
+                    :class="{ 'tab-item-active': selectedPage === 'Ghosts' }">
+                    Ghosts
+                </button>
+                <button class="toggle-btn" @click="toggleJournal">
                     <img class="toggle-btn-size" src="/recursos/close.png" alt="Maximizar">
                 </button>
             </div>
-            <div class="cajaEvidencias">
-                <hr>
-                <span v-if="fantasmas" class="fantasma"></span>
-                <span v-else class="fantasma">{{ textoFantasmas }}</span>
-                <table class="evidencias-table">
-                    <tr>
-                        <td @click="toggleState(evidence[0])" class="nombre-evidencia" id="emf">EMF Level 5</td>
-                        <td @click="toggleState(evidence[1])" class="nombre-evidencia" id="dots">D.O.T.S Projector</td>
-                    </tr>
-                    <tr>
-                        <td @click="toggleState(evidence[2])" class="nombre-evidencia" id="hd">Fingerprints</td>
-                        <td @click="toggleState(evidence[3])" class="nombre-evidencia" id="orbes">Ghost Orb</td>
-                    </tr>
-                    <tr>
-                        <td @click="toggleState(evidence[4])" class="nombre-evidencia" id="libro">Ghost Writing</td>
-                        <td @click="toggleState(evidence[5])" class="nombre-evidencia" id="sb">Spirit Box</td>
-                    </tr>
-                    <tr>
-                        <td @click="toggleState(evidence[6])" class="nombre-evidencia" id="temp">Freezing Temperatures
-                        </td>
-                    </tr>
-                    <tr>
-                    </tr>
-                </table>
-                <hr>
-                <table class="fantasmas-table">
-                    <tr v-for="row in fantasmasTable" :key="row.id">
-                        <td v-for="ghost in row.ghosts" :key="ghost.id">
-                            <div :class="{ 'fantasma-nombre': true, 'fantasma-seleccionado': isGhostSelected(ghost.name) }">
-                                {{ ghost.name }}
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <hr>
-                <div class="w-100">
-                    <button class="btn-reset" @click="resetEvidencias">Reset</button>
+            <div class="evidenceContainer">
+                <div v-if="selectedPage == 'Evidences'" class="evidences-page">
+                    <hr>
+
+                    <table class="evidences-table">
+                        <tr>
+                            <td @click="toggleState(evidence[0])" class="evidence-name" id="emf">
+                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                        fill="none" style="display: none;" />
+                                </svg>
+
+                                EMF Level 5
+                            </td>
+                            <td @click="toggleState(evidence[1])" class="evidence-name" id="dots">
+                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                        fill="none" style="display: none;" />
+                                </svg>
+
+                                D.O.T.S Projector
+                            </td>
+                        </tr>
+                        <tr>
+                            <td @click="toggleState(evidence[2])" class="evidence-name" id="hd">
+                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                        fill="none" style="display: none;" />
+                                </svg>
+
+                                Fingerprints
+                            </td>
+                            <td @click="toggleState(evidence[3])" class="evidence-name" id="orbes">
+                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                        fill="none" style="display: none;" />
+                                </svg>
+
+                                Ghost Orb
+                            </td>
+                        </tr>
+                        <tr>
+                            <td @click="toggleState(evidence[4])" class="evidence-name" id="libro">
+                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                        fill="none" style="display: none;" />
+                                </svg>
+
+                                Ghost Writing
+                            </td>
+                            <td @click="toggleState(evidence[5])" class="evidence-name" id="sb">
+                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                        fill="none" style="display: none;" />
+                                </svg>
+
+                                Spirit Box
+                            </td>
+                        </tr>
+                        <tr>
+                            <td @click="toggleState(evidence[6])" class="evidence-name" id="temp">
+                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                        fill="none" style="display: none;" />
+                                </svg>
+
+                                Freezing Temperatures
+                            </td>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </table>
+                    <hr>
+                    <table class="fantasmas-table">
+                        <tr v-for="row in fantasmasTable" :key="row.id">
+                            <td v-for="(ghost, index) in row.ghosts" :key="index">
+                                <div :id="ghost.name" :style="{ opacity: fantasmas.length !== 0 ? 0.3 : 1 }"
+                                    :class="{ 'ghost-name': true, 'fantasma-seleccionado': isGhostSelected(ghost.name) }"
+                                    @click="toggleStateGhost(ghostNames[3 * (row.id - 1) + index])">
+                                    {{ ghost.name }}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr>
+                    <div class="w-100">
+                        <button class="btn-reset" @click="resetEvidencias">Reset</button>
+                    </div>
+                </div>
+                <div v-else class="ghosts-page">
+                    Coming soon...
                 </div>
             </div>
         </div>
@@ -59,7 +125,7 @@
 export default {
     data() {
         return {
-            paginaSeleccionada: 'Evidences',
+            selectedPage: 'Evidences',
             fantasmasTable: [
                 { id: 1, ghosts: ['Spirit', 'Wraith', 'Phantom'] },
                 { id: 2, ghosts: ['Poltergeist', 'Banshee', 'Jinn'] },
@@ -70,9 +136,8 @@ export default {
                 { id: 7, ghosts: ['Raiju', 'Obake', 'The Mimic'] },
                 { id: 8, ghosts: ['Moroi', 'Deogen', 'Thaye'] },
             ],
-            textoFantasmas: '',
             fantasmas: '',
-            botonesMinimizados: false,
+            journalHidden: false,
             evidencias: {
                 emf: 'deseleccionado',
                 dots: 'deseleccionado',
@@ -84,8 +149,33 @@ export default {
             },
             maxEvidencias: 3,
             evidence: ['emf', 'dots', 'hd', 'orbes', 'libro', 'sb', 'temp'],
-            fantasmasNombre: ['Spirit', 'Wraith', 'Phantom', 'Poltergeist', 'Banshee', 'Jinn', 'Mare', 'Revenant', 'Shade', 'Demon', 'Yurei', 'Oni', 'Yokai', 'Hantu', 'Goryo', 'Myling', 'Onryo', 'The Twins', 'Raiju', 'Obake', 'The Mimic', 'Moroi', 'Deogen', 'Thaye'],
-            hoveredIndex: null,
+            ghostNames: ['Spirit', 'Wraith', 'Phantom', 'Poltergeist', 'Banshee', 'Jinn', 'Mare', 'Revenant', 'Shade', 'Demon', 'Yurei', 'Oni', 'Yokai', 'Hantu', 'Goryo', 'Myling', 'Onryo', 'The Twins', 'Raiju', 'Obake', 'The Mimic', 'Moroi', 'Deogen', 'Thaye'],
+            ghostList: {
+                Spirit: 'deseleccionado',
+                Wraith: 'deseleccionado',
+                Phantom: 'deseleccionado',
+                Poltergeist: 'deseleccionado',
+                Banshee: 'deseleccionado',
+                Jinn: 'deseleccionado',
+                Mare: 'deseleccionado',
+                Revenant: 'deseleccionado',
+                Shade: 'deseleccionado',
+                Demon: 'deseleccionado',
+                Yurei: 'deseleccionado',
+                Oni: 'deseleccionado',
+                Yokai: 'deseleccionado',
+                Hantu: 'deseleccionado',
+                Goryo: 'deseleccionado',
+                Myling: 'deseleccionado',
+                Onryo: 'deseleccionado',
+                'The Twins': 'deseleccionado',
+                Raiju: 'deseleccionado',
+                Obake: 'deseleccionado',
+                'The Mimic': 'deseleccionado',
+                Moroi: 'deseleccionado',
+                Deogen: 'deseleccionado',
+                Thaye: 'deseleccionado'
+            },
         };
     },
     computed: {
@@ -109,8 +199,8 @@ export default {
         getGhostRow(ghostNames) {
             return ghostNames.map(name => ({ name, selected: this.isGhostSelected(name) }));
         },
-        toggleBotones() {
-            this.botonesMinimizados = !this.botonesMinimizados;
+        toggleJournal() {
+            this.journalHidden = !this.journalHidden;
         },
         toggleState(item) {
             const currentState = this.evidencias[item];
@@ -131,34 +221,88 @@ export default {
                 this.updateFantasmas();
             }
         },
+        toggleStateGhost(item) {
+            const currentState = this.ghostList[item];
+            if (currentState === 'deseleccionado') {
+                this.ghostList[item] = 'seleccionado';
+                this.setGhostSeleccionado(item);
+            } else if (currentState === 'seleccionado') {
+                this.ghostList[item] = 'eliminado';
+                this.setGhostEliminado(item);
+            } else if (currentState === 'eliminado') {
+                this.ghostList[item] = 'deseleccionado';
+                this.setGhostDeseleccionado(item);
+            }
+        },
+        setGhostSeleccionado(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.outline = 'solid';
+                element.style.outlineOffset = '-1px';
+                element.style.outlineWidth = '2px';
+                element.style.outlineColor = 'black';
+                element.style.borderRadius = '10px';
+            }
+        },
+        setGhostEliminado(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.outline = 'none';
+                element.style.textDecoration = 'line-through';
+                element.style.textDecorationThickness = '2px';
+            }
+        },
+        setGhostDeseleccionado(id) {
+            const element = document.getElementById(id);
+            const checkMark = element.querySelector(".cross");
+            if (checkMark) {
+                checkMark.style.display = "none"; // Oculta el tilde
+            }
+            if (element) {
+                element.style.outline = 'none';
+                element.style.textDecoration = 'none';
+            }
+        },
         setSeleccionado(id) {
             const element = document.getElementById(id);
             if (element) {
-                element.style.outlineStyle = 'solid';
-                element.style.outlineWidth = '2px';
-                element.style.outlineColor = 'black';
-                element.style.outlineOffset = '-2px';
-                element.style.borderRadius = '10px';
+                const checkMark = element.querySelector(".cross");
+                if (checkMark) {
+                    checkMark.style.display = "block"; // Muestra el tilde
+                }
             }
         },
         setEliminado(id) {
             const element = document.getElementById(id);
             if (element) {
+                const checkMark = element.querySelector(".cross");
+                if (checkMark) {
+                    checkMark.style.display = "none"; // Oculta el tilde
+                }
                 element.style.outline = 'none';
                 element.style.textDecoration = 'line-through';
+                element.style.textDecorationThickness = '2px';
             }
         },
         setDeseleccionado(id) {
             const element = document.getElementById(id);
+            const checkMark = element.querySelector(".cross");
+            if (checkMark) {
+                checkMark.style.display = "none"; // Oculta el tilde
+            }
             if (element) {
                 element.style.outline = 'none';
                 element.style.textDecoration = 'none';
             }
         },
         resetEvidencias() {
-            for (const image in this.evidencias) {
-                this.evidencias[image] = 'deseleccionado';
-                this.setDeseleccionado(image);
+            for (const evidencia in this.evidencias) {
+                this.evidencias[evidencia] = 'deseleccionado';
+                this.setDeseleccionado(evidencia);
+            }
+            for (const ghost in this.ghostList){
+                this.ghostList[ghost] = 'deseleccionado';
+                this.setGhostDeseleccionado(ghost);
             }
             this.updateFantasmas();
             this.textoFantasmas = '';
@@ -189,9 +333,6 @@ export default {
 
             this.fantasmas = eliminatedGhosts.map(ghost => ghost.charAt(0).toUpperCase() + ghost.slice(1));
 
-            if (this.fantasmas === '') {
-                this.textoFantasmas = 'Ningún fantasma cuenta con estas evidencias.';
-            }
         },
     },
 };
@@ -201,33 +342,38 @@ export default {
 body {
     font-family: 'fuente';
     user-select: none;
+    font-style: italic;
 }
 
 .fantasmas-table {
     text-align: center;
     width: 100%;
 }
-
 .fantasmas-table td {
-    padding: 5px;
+    padding: 2px;
     margin: auto;
 }
 
-.fantasma-nombre {
-    opacity: 0.5;
+.ghost-name {
+    margin: auto;
+    white-space: nowrap;
     /* Opacidad predeterminada */
 }
 
-.fantasma-nombre.fantasma-seleccionado {
-    font-weight: bold;
-    /* FuPhantom en negrita si está seleccionado */
-    opacity: 1;
+.ghost-name:hover {
+    background-image: url('/recursos/brush.png');
+    /* Imagen de pincelada */
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+}
 
-    /* Restablecer la opacidad si está seleccionado */
+.ghost-name.fantasma-seleccionado {
+    /* FuPhantom en negrita si está seleccionado */
+    opacity: 1 !important;
 }
 
 .evidencias-table {
-    text-align: center;
     width: 100%;
     margin: 0 auto 0 auto;
     font-size: 2rem;
@@ -239,13 +385,20 @@ body {
     border-color: rgba(0, 0, 0, 0);
 }
 
-.nombre-evidencia {
+.evidence-name {
     margin: auto;
+    width: 50%;
     vertical-align: middle;
     padding: 0;
+    border-radius: 10px;
+    white-space: nowrap;
 }
 
-.nombre-evidencia:hover {
+.evidence-name:hover {
+    background-image: url('/recursos/brush.png');
+    /* Imagen de pincelada */
+    background-size: cover;
+    background-position: center;
     cursor: pointer;
 }
 
@@ -268,7 +421,7 @@ body {
 
 .btn-maximizar {
     position: absolute;
-    top: 16%;
+    top: calc(15% - 10px);
     left: 10px;
 }
 
@@ -277,12 +430,20 @@ body {
     height: 50px;
 }
 
-.cajaEvidencias {
+.evidences-page {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+.evidenceContainer {
     width: 30%;
     min-width: 255px;
     height: 70%;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 15%;
     left: 0;
@@ -290,8 +451,8 @@ body {
     background-color: rgb(254, 252, 219);
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    padding: 0 10px 10px 10px;
-    background-image: url('C:\Proyectos\journal-phasmophobia-en\public\recursos\fondo-page.jpg');
+    padding: 0 10px;
+    background-image: url('D:\Proyectos\journal-phasmophobia\public\recursos\fondo-page.jpg');
     background-size: contain;
 }
 
@@ -309,18 +470,11 @@ hr {
     width: 100%;
 }
 
-.seleccionado {
-    border: 2px solid green;
-    /* Cambiar a tus estilos deseados */
-}
-
-.eliminado {
-    border: 2px solid red;
-    /* Cambiar a tus estilos deseados */
-}
 
 .btn-reset {
     font-family: 'fuente';
+    font-size: large;
+    font-weight: normal;
     color: white;
     text-shadow: 2px 1px 5px black;
     border: none;
@@ -333,13 +487,13 @@ hr {
     color: rgb(210, 230, 247);
 }
 
-.minimizado {
+.hideJournal {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
 
-.maximizado {
+.showJournal {
     opacity: 100;
     transition: opacity 0.3s ease;
 }
@@ -350,7 +504,7 @@ hr {
     color: white;
     text-shadow: 1px 1px 5px black;
     z-index: 1;
-    margin-left:auto;
+    margin-left: auto;
 }
 
 .toggle-btn:hover {
@@ -370,13 +524,13 @@ hr {
 }
 
 .tabs {
-    display:flex;
+    display: flex;
     height: 30px;
-    width:calc(30% + 20px);
+    width: calc(30% + 20px);
     min-width: 255px;
-    position:absolute;
+    position: absolute;
     left: 5px;
-    top:calc(15% - 30px);
+    top: calc(15% - 30px);
 }
 
 .tab-item {
@@ -413,17 +567,13 @@ hr {
 }
 
 @media (max-height:499px) {
-    .cajaEvidencias {
+    .evidenceContainer {
         min-height: 290px;
     }
 
     .fantasmas-table td {
-        padding: 0;
+        padding: 1px;
     }
 
-    .evidencias-table tr {
-        display: flex;
-        justify-content: space-evenly;
-    }
 }
 </style>

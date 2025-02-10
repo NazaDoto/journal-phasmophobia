@@ -9,7 +9,8 @@ import InicioComponent from './components/InicioComponent.vue';
 <style scoped>
 @font-face {
     font-family: 'fuente';
-    src: url('C:\Proyectos\journal-phasmophobia-en\public\recursos\lazy_dog.ttf');
+   /* src: url('C:\Proyectos\journal-phasmophobia-en\public\recursos\lazy_dog.ttf');*/
+    src: url('D:\Proyectos\journal-phasmophobia\public\recursos\lazy_dog.ttf');
 }
 
 header {
