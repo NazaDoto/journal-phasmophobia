@@ -21,81 +21,93 @@
                 <div v-if="selectedPage == 'Evidences'" class="evidences-page">
                     <hr>
 
-                    <table class="evidences-table">
-                        <tr>
-                            <td @click="toggleState(evidence[0])" class="evidence-name" id="emf">
-                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
-                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
-                                        fill="none" style="display: none;" />
-                                </svg>
-
-                                EMF Level 5
-                            </td>
-                            <td @click="toggleState(evidence[1])" class="evidence-name" id="dots">
-                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
-                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
-                                        fill="none" style="display: none;" />
-                                </svg>
-
-                                D.O.T.S Projector
-                            </td>
-                        </tr>
-                        <tr>
-                            <td @click="toggleState(evidence[2])" class="evidence-name" id="hd">
-                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
-                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
-                                        fill="none" style="display: none;" />
-                                </svg>
-
-                                Fingerprints
-                            </td>
-                            <td @click="toggleState(evidence[3])" class="evidence-name" id="orbes">
-                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
-                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
-                                        fill="none" style="display: none;" />
-                                </svg>
-
-                                Ghost Orb
-                            </td>
-                        </tr>
-                        <tr>
-                            <td @click="toggleState(evidence[4])" class="evidence-name" id="libro">
-                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
-                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
-                                        fill="none" style="display: none;" />
-                                </svg>
-
-                                Ghost Writing
-                            </td>
-                            <td @click="toggleState(evidence[5])" class="evidence-name" id="sb">
-                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
-                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
-                                        fill="none" style="display: none;" />
-                                </svg>
-
-                                Spirit Box
-                            </td>
-                        </tr>
-                        <tr>
-                            <td @click="toggleState(evidence[6])" class="evidence-name" id="temp">
-                                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
-                                    <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
-                                        fill="none" style="display: none;" />
-                                </svg>
-
-                                Freezing Temperatures
-                            </td>
-                        </tr>
-                        <tr>
-                        </tr>
-                    </table>
+                    <div class="evidences-table">
+                        <div class="evidence-item">
+                            <div @click="toggleState(evidence[0])" class="evidence-name" id="emf">
+                                <div class="content">
+                                    <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                        <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                            fill="none" style="display: none;" />
+                                    </svg>
+                                    EMF Level 5
+                                </div>
+                                <div class="strike-line"></div> <!-- Línea horizontal -->
+                            </div>
+                            <div @click="toggleState(evidence[1])" class="evidence-name" id="dots">
+                                <div class="content">
+                                    <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                        <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                            fill="none" style="display: none;" />
+                                    </svg>
+                                    D.O.T.S. Projector
+                                </div>
+                                <div class="strike-line"></div> <!-- Línea horizontal -->
+                            </div>
+                        </div>
+                        <div class="evidence-item">
+                            <div @click="toggleState(evidence[2])" class="evidence-name" id="hd">
+                                <div class="content">
+                                    <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                        <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                            fill="none" style="display: none;" />
+                                    </svg>
+                                    Fingerprints
+                                </div>
+                                <div class="strike-line"></div> <!-- Línea horizontal -->
+                            </div>
+                            <div @click="toggleState(evidence[3])" class="evidence-name" id="orbes">
+                                <div class="content">
+                                    <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                        <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                            fill="none" style="display: none;" />
+                                    </svg>
+                                    Ghost Orb
+                                </div>
+                                <div class="strike-line"></div> <!-- Línea horizontal -->
+                            </div>
+                        </div>
+                        <div class="evidence-item">
+                            <div @click="toggleState(evidence[4])" class="evidence-name" id="libro">
+                                <div class="content">
+                                    <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                        <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                            fill="none" style="display: none;" />
+                                    </svg>
+                                    Ghost Writing
+                                </div>
+                                <div class="strike-line"></div> <!-- Línea horizontal -->
+                            </div>
+                            <div @click="toggleState(evidence[5])" class="evidence-name" id="sb">
+                                <div class="content">
+                                    <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                        <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                            fill="none" style="display: none;" />
+                                    </svg>
+                                    Spirit Box
+                                </div>
+                                <div class="strike-line"></div> <!-- Línea horizontal -->
+                            </div>
+                        </div>
+                        <div class="evidence-item">
+                            <div @click="toggleState(evidence[6])" class="evidence-name" id="temp">
+                                <div class="content">
+                                    <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="15" height="15" fill="none" stroke="black" stroke-width="4" />
+                                        <path class="cross" d="M3 3 L12 12 M12 3 L3 12" stroke="black" stroke-width="3"
+                                            fill="none" style="display: none;" />
+                                    </svg>
+                                    Freezing Temperatures
+                                </div>
+                                <div class="strike-line"></div> <!-- Línea horizontal -->
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                     <table class="fantasmas-table">
                         <tr v-for="row in fantasmasTable" :key="row.id">
@@ -103,7 +115,10 @@
                                 <div :id="ghost.name" :style="{ opacity: fantasmas.length !== 0 ? 0.3 : 1 }"
                                     :class="{ 'ghost-name': true, 'fantasma-seleccionado': isGhostSelected(ghost.name) }"
                                     @click="toggleStateGhost(ghostNames[3 * (row.id - 1) + index])">
-                                    {{ ghost.name }}
+                                    <div class="content w-100">
+                                        {{ ghost.name }}
+                                    </div>
+                                    <div class="strike-line"></div> <!-- Línea horizontal -->
                                 </div>
                             </td>
                         </tr>
@@ -234,9 +249,43 @@ export default {
                 this.setGhostDeseleccionado(item);
             }
         },
+        setSeleccionado(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const checkMark = element.querySelector(".cross");
+                const strikeLine = element.querySelector(".strike-line");
+                if (checkMark) checkMark.style.display = "block"; // Muestra el tilde
+                if (strikeLine) strikeLine.style.display = "none"; // Oculta la línea
+            }
+        },
+        setEliminado(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.textDecoration = 'line-through';
+                element.style.textDecorationThickness = '2px';
+                const checkMark = element.querySelector(".cross");
+                const strikeLine = element.querySelector(".strike-line");
+                if (checkMark) checkMark.style.display = "none"; // Oculta el tilde
+                if (strikeLine) strikeLine.style.display = "block"; // Muestra la línea
+            }
+        },
+        setDeseleccionado(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.textDecoration = 'none';
+                const checkMark = element.querySelector(".cross");
+                const strikeLine = element.querySelector(".strike-line");
+                if (checkMark) checkMark.style.display = "none"; // Oculta el tilde
+                if (strikeLine) strikeLine.style.display = "none"; // Oculta la línea
+            }
+        },
         setGhostSeleccionado(id) {
             const element = document.getElementById(id);
             if (element) {
+                const checkMark = element.querySelector(".cross");
+                const strikeLine = element.querySelector(".strike-line");
+                if (checkMark) checkMark.style.display = "block"; // Muestra el tilde
+                if (strikeLine) strikeLine.style.display = "none"; // Oculta la línea
                 element.style.outline = 'solid';
                 element.style.outlineOffset = '-1px';
                 element.style.outlineWidth = '2px';
@@ -247,52 +296,20 @@ export default {
         setGhostEliminado(id) {
             const element = document.getElementById(id);
             if (element) {
-                element.style.outline = 'none';
                 element.style.textDecoration = 'line-through';
                 element.style.textDecorationThickness = '2px';
+                element.style.outline = 'none';
             }
         },
         setGhostDeseleccionado(id) {
             const element = document.getElementById(id);
-            const checkMark = element.querySelector(".cross");
-            if (checkMark) {
-                checkMark.style.display = "none"; // Oculta el tilde
-            }
             if (element) {
-                element.style.outline = 'none';
                 element.style.textDecoration = 'none';
-            }
-        },
-        setSeleccionado(id) {
-            const element = document.getElementById(id);
-            if (element) {
                 const checkMark = element.querySelector(".cross");
-                if (checkMark) {
-                    checkMark.style.display = "block"; // Muestra el tilde
-                }
-            }
-        },
-        setEliminado(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                const checkMark = element.querySelector(".cross");
-                if (checkMark) {
-                    checkMark.style.display = "none"; // Oculta el tilde
-                }
+                const strikeLine = element.querySelector(".strike-line");
+                if (checkMark) checkMark.style.display = "none"; // Oculta el tilde
+                if (strikeLine) strikeLine.style.display = "none"; // Oculta la línea
                 element.style.outline = 'none';
-                element.style.textDecoration = 'line-through';
-                element.style.textDecorationThickness = '2px';
-            }
-        },
-        setDeseleccionado(id) {
-            const element = document.getElementById(id);
-            const checkMark = element.querySelector(".cross");
-            if (checkMark) {
-                checkMark.style.display = "none"; // Oculta el tilde
-            }
-            if (element) {
-                element.style.outline = 'none';
-                element.style.textDecoration = 'none';
             }
         },
         resetEvidencias() {
@@ -300,7 +317,7 @@ export default {
                 this.evidencias[evidencia] = 'deseleccionado';
                 this.setDeseleccionado(evidencia);
             }
-            for (const ghost in this.ghostList){
+            for (const ghost in this.ghostList) {
                 this.ghostList[ghost] = 'deseleccionado';
                 this.setGhostDeseleccionado(ghost);
             }
@@ -339,6 +356,50 @@ export default {
 </script>
 
 <style>
+.evidence-item {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.evidence-name {
+    position: relative;
+    width: 50%;
+}
+
+.ghost-name {
+    position: relative;
+    /* Permite posicionar la línea de forma absoluta */
+    width: 100%;
+    /* Ocupa todo el ancho disponible */
+}
+
+.strike-line {
+    position: absolute;
+    top: 50%;
+    /* Centra verticalmente */
+    left: 0;
+    width: 20%;
+    height: 2.5px;
+    /* Grosor de la línea */
+    background-color: black;
+    /* Color de la línea */
+    /* Ajusta el centrado vertical */
+    display: none;
+    /* Inicialmente oculta */
+}
+
+.evidence-name .content,
+.ghost-name .content {
+    position: relative;
+    z-index: 1;
+    /* Asegura que el contenido esté por encima de la línea */
+}
+
+.content {
+    width: fit-content;
+}
+
 body {
     font-family: 'fuente';
     user-select: none;
@@ -349,6 +410,7 @@ body {
     text-align: center;
     width: 100%;
 }
+
 .fantasmas-table td {
     padding: 2px;
     margin: auto;
@@ -373,21 +435,23 @@ body {
     opacity: 1 !important;
 }
 
-.evidencias-table {
+.evidences-table {
     width: 100%;
     margin: 0 auto 0 auto;
     font-size: 2rem;
     white-space: nowrap;
+    padding: 0;
+    display:flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.evidencias-table td {
+.evidences-table td {
     border-style: solid;
     border-color: rgba(0, 0, 0, 0);
 }
 
 .evidence-name {
-    margin: auto;
-    width: 50%;
     vertical-align: middle;
     padding: 0;
     border-radius: 10px;
@@ -398,6 +462,7 @@ body {
     background-image: url('/recursos/brush.png');
     /* Imagen de pincelada */
     background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
 }
@@ -435,6 +500,7 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     height: 100%;
+    width: 100%;
 }
 
 .evidenceContainer {
@@ -523,6 +589,10 @@ hr {
     border-style: solid;
 }
 
+.line-through {
+    display: none;
+}
+
 .tabs {
     display: flex;
     height: 30px;
@@ -561,7 +631,7 @@ hr {
 @media (max-width:1919px) {
 
     .fantasmas-table,
-    .evidencias-table {
+    .evidences-table {
         font-size: 1rem;
     }
 }
