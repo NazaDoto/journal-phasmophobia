@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Extension Config</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0e0e10;
+      color: #efeff1;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #18181b;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    h1 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #9146FF;
+    }
+    p {
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #0e0e10;
+      color: #efeff1;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      background: #9146FF;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #772ce8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Extension Configuration</h1>
+    <p>
+      Welcome! This panel allows you to configure the extension before activating it on your channel.  
+      Adjust the options below to customize how the extension interacts with your stream and viewers.
+    </p>
+
+    <label for="language">Language</label>
+    <select id="language">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+    </select>
+
+    <label for="apiKey">API Key (optional)</label>
+    <input type="text" id="apiKey" placeholder="Enter your API key"/>
+
+    <button>Save Configuration</button>
+  </div>
+</body>
+</html>
